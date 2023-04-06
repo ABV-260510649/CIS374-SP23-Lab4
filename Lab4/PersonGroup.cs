@@ -57,27 +57,31 @@ namespace Lab4
         {
             var personGroups = new List<PersonGroup>();
 
-            // This isn't correct code. 
-            // It's is just a sample of how to interact with the classes.
-            var group1 = new PersonGroup();
-            var group2 = new PersonGroup();
-
-            foreach (var person in persons)
-            {
-                if (person.FirstName.StartsWith("K"))
+            persons.Sort();
+            var currentGroup = new PersonGroup(); 
+            var nextGroup = new PersonGroup();
+            foreach (var person in persons) { 
+                if (currentGroup.Count == 0)
                 {
-                    group1.Persons.Add(person);
+                    currentGroup.Persons.Add(person);
+                }
+                else if (person.Distance(currentGroup[0]) <= distance)
+                {
+                    currentGroup.Persons.Add(person);
                 }
                 else
                 {
-                    group2.Persons.Add(person);
+                    personGroups.Add(currentGroup);
+                    currentGroup = new PersonGroup();
+                    currentGroup.Persons.Add(person);
                 }
             }
-
-            personGroups.Add(group1);
-            personGroups.Add(group2);
+            personGroups.Add(currentGroup);
+            personGroups.Add(nextGroup);
+            personGroups.Remove(personGroups[personGroups.Count - 1]);
 
             return personGroups;
+
         }
 
     }
