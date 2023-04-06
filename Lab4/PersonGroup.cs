@@ -14,7 +14,11 @@ namespace Lab4
         }
 
         // TODO
-        public char? EndingLetter { get; }
+        public char? EndingLetter { get
+            {
+                return Persons[Count - 1].FirstName[0];
+            }
+            }
 
         public int Count => Persons.Count;
 
@@ -59,7 +63,6 @@ namespace Lab4
 
             persons.Sort();
             var currentGroup = new PersonGroup(); 
-            var nextGroup = new PersonGroup();
             foreach (var person in persons) { 
                 if (currentGroup.Count == 0)
                 {
@@ -77,8 +80,6 @@ namespace Lab4
                 }
             }
             personGroups.Add(currentGroup);
-            personGroups.Add(nextGroup);
-            personGroups.Remove(personGroups[personGroups.Count - 1]);
 
             return personGroups;
 
